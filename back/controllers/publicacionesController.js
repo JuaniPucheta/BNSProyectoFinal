@@ -43,8 +43,10 @@ const actualizarPublicacion = async (req, res) => {
 
 const eliminarPublicacion = async (req, res) => {
     try {
-        const publicacion = await Publicacion.findById(req.params.id);
-        await publicacion.remove();
+        const publicacion = await Publicacion.findByIdAndDelete(req.params.id);
+        if (!publicacion) {
+            return res.status(404).json({ mensaje: 'Publicacion no encontrada' });
+        }
         res.json({ mensaje: 'Publicacion eliminada' });
     } catch (error) {
         res.status(500).json({ error: error.message });

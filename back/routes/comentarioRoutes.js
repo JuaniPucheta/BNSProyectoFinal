@@ -1,9 +1,9 @@
 const express = require('express');
-const comentarioController = require('../controllers/comentarioController');
+const {createComentario, deleteComentario} = require('../controllers/comentarioController');
 
 const router = express.Router();
 
-router.post('/', comentarioController.createComentario);
-router.delete('/:id', comentarioController.deleteComentario);
+router.post('/comentarios', (req, res) => createComentario(req, res));
+router.delete('/comentarios/:id', (req, res) => deleteComentario(req, res));
 
 module.exports = router;
