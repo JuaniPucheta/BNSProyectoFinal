@@ -1,17 +1,13 @@
-// src/db.js
 const mongoose = require('mongoose');
 
 const conectarBD = async () => {
-  try {
-    await mongoose.connect('mongodb://localhost:27017/bnsProyectoFinal', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
+  mongoose.connect('mongodb://127.0.0.1:27017/bnsProyectoFinal')
+    .then(() => {
+      console.log('Connected to MongoDB');
+    })
+    .catch((error) => {
+      console.error('Error connecting to MongoDB:', error);
     });
-    console.log('Conexión exitosa a la base de datos');
-  } catch (error) {
-    console.error('Error de conexión a la base de datos:', error.message);
-    process.exit(1); 
-  }
 };
 
 module.exports = conectarBD;

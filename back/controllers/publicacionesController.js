@@ -68,53 +68,10 @@ const crearComentario = async (req, res) => {
     }
 };
   
-const actualizarComentario = async (req, res) => {
-    try {
-        const publicacion = await Publicacion.findById(req.params.id);
-        if (!publicacion) {
-        return res.status(404).json({ message: 'Publicación no encontrada' });
-        }
-
-        const comentario = publicacion.comentarios.id(req.params.comentarioId);
-        if (!comentario) {
-        return res.status(404).json({ message: 'Comentario no encontrado' });
-        }
-
-        comentario.set(req.body);
-        const publicacionGuardada = await publicacion.save();
-        res.json(publicacionGuardada.comentarios);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-};
-  
-  const eliminarComentario = async (req, res) => {
-    try {
-      const publicacion = await Publicacion.findById(req.params.id);
-      if (!publicacion) {
-        return res.status(404).json({ message: 'Publicación no encontrada' });
-      }
-  
-      const comentario = publicacion.comentarios.id(req.params.comentarioId);
-      if (!comentario) {
-        return res.status(404).json({ message: 'Comentario no encontrado' });
-      }
-  
-      comentario.remove();
-      const publicacionGuardada = await publicacion.save();
-      res.json(publicacionGuardada.comentarios);
-    } catch (error) {
-      res.status(500).json({ error: error.message });
-    }
-  };
-
 module.exports = {
     obtenerPublicaciones,
     obtenerPublicacionPorId,
     crearPublicacion,
     actualizarPublicacion,
     eliminarPublicacion,
-    crearComentario,
-    actualizarComentario,
-    eliminarComentario,
 };
