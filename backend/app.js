@@ -20,4 +20,4 @@ app.use("/", commentRouter);
 connect();
 
 //* Servidor
-app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
+app.listen(PORT, () => console.log(`Servidor en puerto: ${PORT}`));
