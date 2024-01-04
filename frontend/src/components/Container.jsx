@@ -20,7 +20,8 @@ export const Container = () => {
 		// TODO --> Agregar una card de "Cargando publicaciones" mientras se cargan las publicaciones
 		// TODO --> Agregar un botón de "Cargar publicaciones" cuando no hay publicaciones
 		// TODO --> Manejar el tema de ocupar toda la pantalla y que no haya un espacio en blanco al final
-		
+		// TODO --> Arreglar el searchbox del header
+
 		<div className="container">
 			<div className="row row-cols-3">
 				{publications.map((pub) => (
