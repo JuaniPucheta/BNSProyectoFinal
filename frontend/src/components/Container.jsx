@@ -2,13 +2,20 @@ import "../styles/container.css";
 import { useEffect, useState } from "react";
 import { PublicationCard } from "./PublicationCard";
 import { fetchPublications } from "../ApiMethods";
+import { useNavigate } from "react-router-dom";
 
 export const Container = () => {
+	const navigate = useNavigate();
 	const [publications, setPublications] = useState([]);
+	const [loading, setLoading] = useState(false);	
 
 	const loadPublications = async () => {
-		const data = await fetchPublications();
-		setPublications(data);
+		try {
+			const data = await fetchPublications();
+			setPublications(data);
+		} finally {
+			setLoading(false);
+		}
 	};
 
 	useEffect(() => {
@@ -16,22 +23,48 @@ export const Container = () => {
 	}, []);
 
 	return (
-		// TODO --> Manejar las columnas de forma dinámica, dependiendo del tamaño de la pantalla (col-1, col-2, col-3, col-4)
-		// TODO --> Agregar una card de "Cargando publicaciones" mientras se cargan las publicaciones
-		// TODO --> Agregar un botón de "Cargar publicaciones" cuando no hay publicaciones
 		// TODO --> Manejar el tema de ocupar toda la pantalla y que no haya un espacio en blanco al final
 		// TODO --> Arreglar el searchbox del header
 
-		<div className="container">
-			<div className="row row-cols-3">
-				{publications.map((pub) => (
-					<PublicationCard
+		<div className="container min-h-screen">
+			{loading ? (
+				<div className="flex items-center justify-center min-h-screen">
+					<div className="animate-spin rounded-full h-16 w-16 border-t-4 border-[#678c99]"></div>
+					<p className="ml-4 text-[#678c99]">Cargando publicaciones...</p>
+				</div>
+			) : (
+				<div className="flex flex-wrap justify-center">
+				{publications.length > 0 ? (
+					publications.map((pub) => (
+					<div
 						key={pub._id}
-						pub={pub}
-						loadPublications={loadPublications}
-					/>
-				))}
-			</div>
+						className="card mx-4 mb-4 max-w-sm md:max-w-md lg:max-w-xl xl:max-w-2xl"
+					>
+						<PublicationCard
+							pub={pub}
+							loadPublications={loadPublications}
+						/>
+					</div>
+					))
+				) : (
+					<div className="container min-h-screen flex justify-center items-center">
+						<div className="card text-center new-publication-card mx-4 mb-4 max-w-sm md:max-w-md lg:max-w-xl xl:max-w-2xl bg-gradient-to-br from-[#d6c292] to-[#fff1cf] p-4 rounded-md shadow-md">
+							<div className="card-body">
+								<h5 className="card-title text-white font-bold text-xl mb-4">
+									Crear nueva publicación
+								</h5>
+								<button
+									onClick={() => navigate("/create-new-publication")}
+									className="btn bg-[#678c99] hover:bg-[#b8c7cc] text-white font-semibold w-full transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none"
+								>
+									Ir a crear
+								</button>
+							</div>
+						</div>
+					</div>
+				)}
+				</div>
+			)}
 		</div>
 	);
 };

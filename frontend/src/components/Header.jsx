@@ -39,7 +39,7 @@ export const Header = () => {
         <div className="menuList hidden lg:flex items-center space-x-4">
           {options.map((option) => (
             <div
-              className="nav-item cursor-pointer transition duration-300 ease-in-out hover:text-gray-300 hover:bg-[#576f80] rounded-md p-2"
+              className="nav-item cursor-pointer font-semibold transition duration-300 ease-in-out hover:text-gray-300 hover:bg-[#576f80] rounded-md p-2"
               onClick={() => navigate(option.route)}
               key={option.title}
             >
