@@ -1,13 +1,16 @@
 import "../styles/container.css";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { PublicationCard } from "./PublicationCard";
 import { fetchPublications } from "../ApiMethods";
 import { useNavigate } from "react-router-dom";
+
+import { PublicationsContext } from "./PublicationsContext";
 
 export const Container = () => {
 	const navigate = useNavigate();
 	const [publications, setPublications] = useState([]);
 	const [loading, setLoading] = useState(false);	
+	const publicationsContext = useContext(PublicationsContext);
 
 	const loadPublications = async () => {
 		try {
@@ -22,10 +25,15 @@ export const Container = () => {
 		loadPublications();
 	}, []);
 
-	return (
-		// TODO --> Manejar el tema de ocupar toda la pantalla y que no haya un espacio en blanco al final
-		// TODO --> Arreglar el searchbox del header
+	useEffect(() => {
+		if (publicationsContext.state.publications) {
+			setPublications(publicationsContext.state.publications);
+		}
+	}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	, [publicationsContext.state.publications]);
 
+	return (
 		<div className="container min-h-screen">
 			{loading ? (
 				<div className="flex items-center justify-center min-h-screen">
