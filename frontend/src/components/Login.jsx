@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
+import { useNavigate } from 'react-router-dom';
 //TODO import { loginUser } from "../ApiMethods";
 
-export const Login = () => {
+// eslint-disable-next-line react/prop-types
+export const Login = ({ onLogin }) => {
+  const navigate = useNavigate(); 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,20 +19,19 @@ export const Login = () => {
       return;
     }
 
-    //TODO Lógica para autenticar al usuario, puedes utilizar la función loginUser de mis API methods    
+    // Verificación hardcodeada de usuario y contraseña
+    if (username === "test@test.com" && password === "test123") {
+      toast.success("¡Inicio de sesión exitoso!", {
+        duration: 4000,
+      });
 
-    //TODO lógica necesaria para autenticar al usuario, por ejemplo, redirección o almacenamiento del token de autenticación.
-
-    toast.success("¡Inicio de sesión exitoso!", {
-      duration: 4000,
-    });
-
-    toast.error("Error al iniciar sesión. Verifique sus credenciales.", {
-      duration: 4000,
-    });
-
-    // Lógica de redirección después del inicio de sesión (si es necesario)
-    history.push("/");
+      onLogin();
+      navigate('/');
+    } else {
+      toast.error("Error al iniciar sesión. Verifique sus credenciales.", {
+        duration: 4000,
+      });
+    }
   }
 
   return (
