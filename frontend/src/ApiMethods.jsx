@@ -1,8 +1,10 @@
-//Publications
+const BASE_BACKEND = import.meta.env.VITE_BACKEND_URL;
+
+//* Publications
 export async function fetchPublications() {
 	try {
 		const response = await fetch(
-			`${import.meta.env.VITE_BACKEND_URL}/publications`,
+			`${BASE_BACKEND}/publications`,
 			{
 				method: "GET",
 			}
@@ -22,7 +24,7 @@ export async function fetchPublications() {
 export async function fetchPublicationById(publicationId) {
 	try {
 		const response = await fetch(
-			`${import.meta.env.VITE_BACKEND_URL}/publications/${publicationId}`,
+			`${BASE_BACKEND}/publications/${publicationId}`,
 			{
 				method: "GET",
 			}
@@ -42,7 +44,7 @@ export async function fetchPublicationById(publicationId) {
 export async function createPublication(publication) {
 	try {
 		const response = await fetch(
-			`${import.meta.env.VITE_BACKEND_URL}/publications`,
+			`${BASE_BACKEND}/publications`,
 			{
 				method: "POST",
 				headers: {
@@ -67,7 +69,7 @@ export async function editPublication(publicationId, publication) {
 	try {
 		console.log(publication);
 		const response = await fetch(
-			`${import.meta.env.VITE_BACKEND_URL}/publications/${publicationId}`,
+			`${BASE_BACKEND}/publications/${publicationId}`,
 			{
 				method: "PUT",
 				headers: {
@@ -91,7 +93,7 @@ export async function editPublication(publicationId, publication) {
 export async function deletePublication(id) {
 	try {
 		const response = await fetch(
-			`${import.meta.env.VITE_BACKEND_URL}/publications/${id}`,
+			`${BASE_BACKEND}/publications/${id}`,
 			{
 				method: "DELETE",
 				headers: {
@@ -115,7 +117,7 @@ export async function fetchPublicationByKeyWord(keyWord) {
 	try {
 		const response = await fetch(
 			`${
-				import.meta.env.VITE_BACKEND_URL
+				BASE_BACKEND
 			}/publications/search/${keyWord}`,
 			{
 				method: "GET",
@@ -133,11 +135,11 @@ export async function fetchPublicationByKeyWord(keyWord) {
 	}
 }
 
-//Comments
+//* Comments
 export async function createComment(publicationId, comment) {
 	try {
 		const response = await fetch(
-			`${import.meta.env.VITE_BACKEND_URL}/publications/${publicationId}`,
+			`${BASE_BACKEND}/publications/${publicationId}`,
 			{
 				method: "POST",
 				headers: {
@@ -161,7 +163,7 @@ export async function createComment(publicationId, comment) {
 export async function editComment(commentId, comment) {
 	try {
 		const response = await fetch(
-			`${import.meta.env.VITE_BACKEND_URL}/comment/${commentId}`,
+			`${BASE_BACKEND}/comment/${commentId}`,
 			{
 				method: "PUT",
 				headers: {
@@ -185,7 +187,7 @@ export async function editComment(commentId, comment) {
 export async function deleteComment(id) {
 	try {
 		const response = await fetch(
-			`${import.meta.env.VITE_BACKEND_URL}/comment/${id}`,
+			`${BASE_BACKEND}/comment/${id}`,
 			{
 				method: "DELETE",
 				headers: {
@@ -204,3 +206,49 @@ export async function deleteComment(id) {
 		console.error(error);
 	}
 }
+
+//* Users
+export const loginUser = async (credentials) => {
+	try {
+		const response = await fetch(`${BASE_BACKEND}/login`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(credentials),
+		});
+
+		if (!response.ok) {
+			throw new Error("Error al iniciar sesión. Verifique sus credenciales.");
+		}
+
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error("Error en la función loginUser:", error.message);
+		throw error;
+	}
+};
+
+export const registerUser = async (credentials) => {
+	try {
+		const response = await fetch(`${BASE_BACKEND}/register`, {
+			method: "POST",
+			headers: {
+			"Content-Type": "application/json",
+			},
+			body: JSON.stringify(credentials),
+		});
+
+		if (!response.ok) {
+			throw new Error("Error al registrar el usuario.");
+		}
+
+		const data = await response.json();
+		return data;
+	} catch (error) {
+		console.error("Error en la función registerUser:", error.message);
+		throw error;
+	}
+};
+

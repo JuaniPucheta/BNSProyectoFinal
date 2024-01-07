@@ -23,8 +23,13 @@ export const NewPublication = () => {
     });
 
     toast.success(
-      <div>
-        ¡Publicación creada! <a href="/">Volver al Inicio</a>
+      <div className="toast">
+        <p className="text-green-500 font-semibold">
+          ¡Publicación creada!
+        </p>
+        <a href="/" className="text-blue-500 hover:underline cursor-pointer">
+          Volver al Inicio
+        </a>
       </div>
     );
   }

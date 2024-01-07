@@ -26,7 +26,9 @@ export const Container = () => {
 	}, []);
 
 	useEffect(() => {
-		if (publicationsContext.state.publications) {
+		if (!publicationsContext.state.publications) {
+			loadPublications();
+		} else {
 			setPublications(publicationsContext.state.publications);
 		}
 	}

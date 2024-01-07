@@ -8,7 +8,7 @@ import { mdiMenu, mdiMagnify, mdiTools, mdiClose } from '@mdi/js';
 
 const options = [
   { title: 'Crear publicación', route: '/create-new-publication' },
-  { title: 'Login', route: '/' }, // TODO --> queda para desarrollar despues
+  { title: 'Login', route: '/login' }, // TODO --> queda para desarrollar despues
 ];
 
 export const Header = () => {
