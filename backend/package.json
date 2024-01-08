@@ -1,6 +1,6 @@
 {
   "name": "backend_proyecto_final_bns",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "API REST from \"proyectoFinal\" for \"bns\"",
   "main": "app.js",
   "scripts": {

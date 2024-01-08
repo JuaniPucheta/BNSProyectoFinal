@@ -1,15 +1,5 @@
 import Publication from "../model/publication.js";
 
-export const getComment = async (req, res) => {
-	try {
-		const id = req.params.id;
-		const publication = await Publication.findOne({ "comments._id": id });
-		res.json(publication);
-	} catch (error) {
-		console.error(error);
-	}
-};
-
 export const createComment = async (req, res) => {
 	try {
 		const { id } = req.params;
@@ -23,6 +13,16 @@ export const createComment = async (req, res) => {
 			return res.json({ message: "No se encontró el comentario" });
 		}
 		return res.json();
+	} catch (error) {
+		console.error(error);
+	}
+};
+
+export const getComment = async (req, res) => {
+	try {
+		const id = req.params.id;
+		const publication = await Publication.findOne({ "comments._id": id });
+		res.json(publication);
 	} catch (error) {
 		console.error(error);
 	}
