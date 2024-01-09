@@ -20,7 +20,7 @@ function App() {
 
 	return (
 		<PublicationsContext.Provider value={{state: data, dispatch}}>
-			<Router>
+			<Router >
 				<Header />
 				<Routes>
 					<Route path="/" 

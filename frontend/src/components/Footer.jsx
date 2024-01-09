@@ -9,7 +9,7 @@ const socialLinks = [
 export const Footer = () => {
 	return (
 		<footer className="bg-[#678c99] rounded-lg shadow m-4">
-			<div className="w-full mx-auto text-white max-w-screen-xl p-4 sm:flex sm:items-center sm:justify-between">
+			<div className="mx-auto text-white max-w-screen-xl p-4 sm:flex sm:items-center sm:justify-between">
 				<span className="text-base text-center sm:text-left justify-center flex">© 2024 - Juan Ignacio Pucheta</span>
 				<ul className="flex flex-wrap items-center text-xl font-medium sm:mt-0 justify-center sm:justify-start">
 					{socialLinks.map((link) => (

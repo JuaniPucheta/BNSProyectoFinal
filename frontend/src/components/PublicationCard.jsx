@@ -6,8 +6,8 @@ export const PublicationCard = (props) => {
   const navigate = useNavigate();
 
   return (
-    <div key={props.pub._id} className="card max-w-md mx-auto font-medium rounded-xl text-center border-4 border-[#ffecbe] border-b-[#b59e67]">
-      <div className="card-header flex justify-between mt-2 bg-gray-200">
+    <div key={props.pub._id} className="card max-w-md mx-auto font-medium rounded-xl text-center border-double border-4 border-[#ffd470] border-b-[#67501b]">
+      <div className="card-header flex justify-between mt-2 bg-gray-100">
         <h5 className="card-title">{props.pub.title}</h5>
       </div>
 
@@ -23,7 +23,7 @@ export const PublicationCard = (props) => {
 
 		<div className="text-center">
 			<button
-				className="btn text-white font-bold w-fit bg-[#b59e67] hover:bg-[#d6c292] transition duration-200"
+				className="btn text-white font-bold w-fit bg-[#debf76] hover:bg-[#ffc743] transition duration-200"
 				onClick={() => navigate(`/publication/${props.pub._id}`)}>
 			Ver publicación completa</button>
 		</div>

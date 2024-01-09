@@ -35,7 +35,7 @@ export const NewPublication = () => {
   }
 
   return (
-    <div className="vh-100"> {/* vh-100 no es lo mejor, pero es algo, ver de arreglarlo */}
+    <div className="vh-100 flex justify-center items-center"> {/* vh-100 no es lo mejor, pero es algo, ver de arreglarlo */}
       <div className="bg-gray-200 p-6 rounded-md shadow-md mx-auto my-20 w-96">
         <div className="text-center">
           <h3 className="text-xl font-semibold mb-4">Crear nueva publicación</h3>

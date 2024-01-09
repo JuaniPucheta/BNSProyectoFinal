@@ -92,7 +92,7 @@ export const Header = () => {
                 </button>
               )}
               <button
-                className="btn btn-sm btn-search text-white bg-[#b59e67] hover:bg-[#a48a54]"
+                className="btn btn-sm btn-search text-white bg-[#c8a452] hover:bg-[#ffc743]"
                 type="submit"
               >
                 <Icon path={mdiMagnify} size={1} />

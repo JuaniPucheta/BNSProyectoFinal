@@ -35,20 +35,21 @@ export const Login = ({ onLogin }) => {
   }
 
   return (
-    <div className="vh-100 flex justify-center items-center">
-      <div className="bg-gray-200 p-6 rounded-md shadow-md w-96">
+    <div className="vh-100 flex justify-center items-center ">
+      <div className="bg-gray-200 p-6 rounded-md shadow-md hover:shadow-lg w-96 transition duration-300 transform hover:scale-100">
         <div className="text-center">
           <h3 className="text-xl font-semibold mb-4">Inicio de Sesión</h3>
         </div>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="mb-4">
             <label htmlFor="username" className="block text-sm font-medium text-gray-600">
-              Nombre de Usuario
+              Email
             </label>
             <input
               type="text"
               className="form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 px-3 py-2 focus:outline-none focus:border-[#d6c292] focus:ring focus:ring-[#d6c292] transition duration-200"
               id="username"
+              placeholder="Ingrese su email"
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
@@ -60,6 +61,7 @@ export const Login = ({ onLogin }) => {
               type="password"
               className="form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 px-3 py-2 focus:outline-none focus:border-[#d6c292] focus:ring focus:ring-[#d6c292] transition duration-200"
               id="password"
+              placeholder="********"
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>

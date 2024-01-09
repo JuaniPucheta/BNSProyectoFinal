@@ -48,7 +48,7 @@ export const Container = () => {
 					publications.map((pub) => (
 					<div
 						key={pub._id}
-						className="card mx-4 mb-4 max-w-sm md:max-w-md lg:max-w-xl xl:max-w-2xl"
+						className="mx-4 mb-4 max-w-sm md:max-w-md lg:max-w-xl xl:max-w-2xl"
 					>
 						<PublicationCard
 							pub={pub}
