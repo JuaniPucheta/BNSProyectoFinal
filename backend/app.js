@@ -1,10 +1,12 @@
 //* Importaciones
 import express from "express";
 import cors from "cors"
-import router from "./routes/publication-routes.js";
-import commentRouter from "./routes/comments-routes.js";
-import connect from "./db/db.js";
+import router from "./routes/publication-routes";
+import commentRouter from "./routes/comments-routes";
+import userRouter from "./routes/user-routes";
+import connect from "./db/db";
 import jwt from "jsonwebtoken";
+import "dotenv/config";
 
 
 const app = express();
@@ -17,6 +19,7 @@ app.use(cors());
 //* Rutas
 app.use("/publications", router);
 app.use("/", commentRouter);
+app.use("/", userRouter);
 
 //* DB 
 connect();

@@ -1,13 +1,20 @@
 import express from "express";
-import { createPublication, getAllPublications, getPublicationById, editPublication, deletePublication, getPublicationsByKeyWord } from "../controllers/publication-controller.js";
+import { 
+    createPublication, 
+    getAllPublications, 
+    getPublicationById, 
+    editPublication, 
+    deletePublication, 
+    getPublicationsByKeyWord } from "../controllers/publication-controller"; 
+import { authenticateToken } from "../middleware/token-middleware";
 
 const router = express.Router();
 
-router.post("/", createPublication);
-router.get("/", getAllPublications);
-router.get("/:id", getPublicationById);
-router.get("/search/:keyWord", getPublicationsByKeyWord);
-router.put("/:id", editPublication);
-router.delete("/:id", deletePublication);
+router.post("/", authenticateToken, createPublication);
+router.get("/", authenticateToken, getAllPublications);
+router.get("/:id", authenticateToken, getPublicationById);
+router.put("/:id", authenticateToken, editPublication);
+router.delete("/:id", authenticateToken, deletePublication);
+router.get("/search/:keyWord", authenticateToken, getPublicationsByKeyWord);
 
 export default router;
