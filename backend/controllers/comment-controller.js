@@ -1,16 +1,18 @@
-import Publication from "../model/publication.js";
+import Publication from "../model/publication";
+import User from "../model/user";
 
 export const createComment = async (req, res) => {
 	try {
 		const { id } = req.params;
-
+		const userId = req.user.user._id;
+		const user = await User.findById(userId);
 		const publication = await Publication.findOneAndUpdate(
 			{ _id: id },
-			{ $push: { comments: req.body } }
+			{ $push: { comments: { ...req.body, userId, user: user.user } } }
 		);
 
 		if (!publication) {
-			return res.json({ message: "No se encontró el comentario" });
+			return res.json({ message: "no se encontró el comentario" });
 		}
 		return res.json();
 	} catch (error) {

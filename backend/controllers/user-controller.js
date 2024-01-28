@@ -24,19 +24,25 @@ const logIn = async (req, res) => {
 			user: req.body.user,
 		});
 
-		const isPasswordMatch = await bcrypt.compare(
-			req.body.password,
-			user.password
-		);
-
-		if (isPasswordMatch) {			
-			const token = jwt.sign({ user: user.user }, process.env.SECRET, {
-				expiresIn: "1h",
-			});
-			
-			return res.json({ token });
-		} else {
-			return res.json("La contraseña es incorrecta.");
+		if (user) {
+			const isPasswordMatch = await bcrypt.compare(
+				req.body.password,
+				user.password
+			);
+			if (isPasswordMatch) {
+				const token = jwt.sign({ user: user }, process.env.SECRET, {
+					expiresIn: "1h",
+				});
+				const userId = user._id;
+				const userName = user.user;
+				return res.json({ token, userId, userName });
+			} 
+			else {
+				throw new Error("La contraseña ingresada es incorrecta");
+			}
+		} 
+		else {
+			throw new Error("El usuario ingresado es incorrecto");
 		}
 	} catch (error) {
 		console.error(error);
