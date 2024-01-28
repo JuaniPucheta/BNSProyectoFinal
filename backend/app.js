@@ -1,9 +1,9 @@
 //* Importaciones
+import express from "express";
+import cors from "cors"
 import router from "./routes/publication-routes.js";
 import commentRouter from "./routes/comments-routes.js";
-import express from "express";
 import connect from "./db/db.js";
-import cors from "cors"
 
 const app = express();
 const PORT = process.env.PORT || 3000;
