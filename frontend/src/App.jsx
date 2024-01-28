@@ -1,40 +1,42 @@
 import { Route, BrowserRouter as Router, Routes, Navigate } from "react-router-dom";
+import { useReducer } from "react";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
 import { Container } from "./components/Container";
 import { NewPublication } from "./components/NewPublication";
 import { FullPublication } from "./components/FullPublication";
 import { Login } from "./components/Login";
-import { useReducer, useState } from "react";
-import { PublicationsContext, initialState } from "./components/PublicationsContext";
-import { PublicationsReducer } from "./components/PublicationsReducer";
+import { SignIn } from "./components/SignIn";
+import { AppContext, initialState } from "./components/AppContext";
+import { AppReducer } from "./components/AppReducer";
 
 function App() {
-	const [data, dispatch] = useReducer(PublicationsReducer, initialState);
-	const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-	const handleLogin = () => {
-		setIsAuthenticated(true);
-		//? En un escenario real, aca seria la solicitud al servidor para autenticar al usuario
-	}
+	const [data, dispatch] = useReducer(AppReducer, initialState);
 
 	return (
-		<PublicationsContext.Provider value={{state: data, dispatch}}>
-			<Router >
-				<Header />
-				<Routes>
-					<Route path="/" 
-						element={isAuthenticated ? <Container /> : <Navigate to="/login" />}/>
-					<Route path="/create-new-publication" 
-						element={isAuthenticated ? <NewPublication /> : <Navigate to="/login" />} />
-					<Route path="/publication/:id" 
-						element={isAuthenticated ? <FullPublication /> : <Navigate to="/login" />} />
-					<Route path="/login" 
-						element={<Login onLogin={handleLogin} />} />
-				</Routes>
-				<Footer />
+		<AppContext.Provider value={{state: data, dispatch}}>
+			<Router>
+				{data.loggedIn ? (
+					<>
+						<Header />
+						<Routes>
+							<Route path="/" element={<Container />} />
+							<Route path="/create-new-publication" element={<NewPublication />} />
+							<Route path="/publication/:id" element={<FullPublication />} />
+						</Routes>
+						<Footer />
+					</>
+				) : (
+					<>
+						<Routes>
+							<Route path="/login" element={<Login />} />
+							<Route path="/sign-in" element={<SignIn />} />
+							<Route path="*" element={<Navigate to="/" />} />
+						</Routes>
+					</>
+				)}
 			</Router>
-		</PublicationsContext.Provider>
+		</AppContext.Provider>
 	);
 }
 
