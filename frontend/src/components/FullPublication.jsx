@@ -6,8 +6,9 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate, useParams } from 'react-router-dom';
 import Icon from '@mdi/react';
 import { mdiCog } from '@mdi/js';
+import { deletePublication, editPublication, fetchPublicationById } from '../api/publications';
 import { Comment } from './Comment';
-import { deletePublication, editPublication, fetchPublicationById, createComment } from '../ApiMethods';
+import { createComment } from '../api/comments'
 
 export const FullPublication = () => {
   const { id } = useParams();

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createPublication } from "../ApiMethods";
+import { createPublication } from "../api/publications";
 import { toast, Toaster } from "react-hot-toast";
 
 export const NewPublication = () => {

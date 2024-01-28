@@ -1,14 +1,15 @@
 // eslint-disable-next-line no-unused-vars
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import { fetchPublicationByKeyWord } from '../ApiMethods';
+import { fetchPublicationByKeyWord } from '../api/publications';
 import { AppContext } from './AppContext';
 import Icon from '@mdi/react';
 import { mdiMenu, mdiMagnify, mdiTools, mdiClose } from '@mdi/js';
 
 const options = [
+  { title: 'Inicio', route: '/'},
   { title: 'Crear publicación', route: '/create-new-publication' },
-  { title: 'Login', route: '/login' }, // TODO --> queda para desarrollar despues
+  // { title: 'Login', route: '/login' }, 
 ];
 
 export const Header = () => {
@@ -19,7 +20,9 @@ export const Header = () => {
 
 	async function handleSearch(e, keyWord) {
 		e.preventDefault();
-		const payload = await fetchPublicationByKeyWord(keyWord);
+		
+    const payload = await fetchPublicationByKeyWord(keyWord);
+    
 		appContext.dispatch({
 			type: "setPublications",
 			payload,

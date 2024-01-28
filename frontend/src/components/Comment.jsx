@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { deleteComment, editComment } from "../ApiMethods";
+import { deleteComment, editComment } from "../api/comments";
 
 import "../styles/comment.css";
 

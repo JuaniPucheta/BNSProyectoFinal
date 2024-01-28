@@ -1,7 +1,7 @@
 import "../styles/container.css";
 import { useEffect, useState, useContext } from "react";
 import { PublicationCard } from "./PublicationCard";
-import { fetchPublications } from "../ApiMethods";
+import { fetchPublications } from "../api/publications";
 import { useNavigate } from "react-router-dom";
 
 import { AppContext } from "./AppContext";

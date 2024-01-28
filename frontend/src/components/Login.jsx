@@ -1,20 +1,23 @@
-import { AppContext } from "./AppContext";
+import { logIn } from "../api/auth";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
+  const navigate = useNavigate();
 
 	async function handleLogIn(e) {
-		try {
-			e.preventDefault();
+		e.preventDefault();
 
-			AppContext.dispatch({
-				type: "setIsLoggedIn",
-				payload: true,
-			});
-		} catch (error) {
-			console.error(error);
+		const response = await logIn({
+			user: e.target.username.value,
+			password: e.target.password.value,
+		});
+
+		if (response.token) {
+			localStorage.setItem("token", response.token);
+			navigate(0);
 		}
-	}
 
+	}
   return (
     <div className="vh-100 flex justify-center items-center ">
       <div className="bg-gray-200 p-6 rounded-md shadow-md hover:shadow-lg w-96 transition duration-300 transform hover:scale-100">
@@ -28,7 +31,7 @@ export const Login = () => {
             </label>
             <input
               id="username"
-              type="text"
+              type="username"
               className="form-input mt-1 block w-full rounded-md border-gray-300 text-gray-800 px-3 py-2 focus:outline-none focus:border-[#d6c292] focus:ring focus:ring-[#d6c292] transition duration-200"
               placeholder="Ingrese su email"
             />
