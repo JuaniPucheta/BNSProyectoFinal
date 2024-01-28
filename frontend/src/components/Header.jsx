@@ -4,12 +4,11 @@ import { useContext, useEffect, useState } from 'react';
 import { fetchPublicationByKeyWord } from '../api/publications';
 import { AppContext } from './AppContext';
 import Icon from '@mdi/react';
-import { mdiMenu, mdiMagnify, mdiTools, mdiClose } from '@mdi/js';
+import { mdiMenu, mdiMagnify, mdiTools, mdiClose, mdiLogout } from '@mdi/js';
 
 const options = [
   { title: 'Inicio', route: '/'},
   { title: 'Crear publicación', route: '/create-new-publication' },
-  // { title: 'Login', route: '/login' }, 
 ];
 
 export const Header = () => {
@@ -35,6 +34,12 @@ export const Header = () => {
       type: "setPublications",
       payload: null,
     });
+  }
+
+  function handleLogout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    navigate(0);
   }
 
 	useEffect(() => {
@@ -101,6 +106,20 @@ export const Header = () => {
                 <Icon path={mdiMagnify} size={1} />
               </button>
             </form>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <img 
+              className="rounded-circle shadow-1-strong userAvatar"
+              src={`https://ui-avatars.com/api/?name=${localStorage.getItem("user")}&background=random`}
+              alt="avatar"
+            />
+            <button
+              className="btn btn-sm btn-logout bg-red-500 hover:bg-red-400"
+              onClick={handleLogout}
+            >
+              <Icon path={mdiLogout} size={1} />
+            </button>
           </div>
 
         </div>

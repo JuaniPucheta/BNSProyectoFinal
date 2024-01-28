@@ -1,19 +1,29 @@
-/* eslint-disable react/prop-types */
-import { useState } from "react";
 import { deleteComment, editComment } from "../api/comments";
+import PropTypes from "prop-types";
 
 import "../styles/comment.css";
 
+Comment.propTypes = {
+	content: PropTypes.string.isRequired,
+	setContent: PropTypes.func.isRequired,
+	pub: PropTypes.any.isRequired,
+	i: PropTypes.number.isRequired,
+	com: PropTypes.any.isRequired,
+	loadPublication: PropTypes.func.isRequired,
+	selectedComment: PropTypes.string.isRequired,
+	setSelectedComment: PropTypes.func.isRequired,
+};
+
+
 export const Comment = (props) => {
-	const [showEditComment, setShowEditComment] = useState(false);
 
 	async function handleEditComment(commentId) {
 		await editComment(commentId, {
-			user: props.user,
 			content: props.content,
 		});
+		props.setContent("");
 		await props.loadPublication();
-		setShowEditComment(false);
+		props.setSelectedComment("");
 	}
 
 	async function handleDeleteComment(commentId) {
@@ -24,7 +34,7 @@ export const Comment = (props) => {
 	return (
 		<>
 			<div className="card-body comment">
-				{showEditComment ? (
+				{props.selectedComment === props.com._id ? (
 					<div className="d-flex flex-start">
 						<img
 							className="rounded-circle shadow-1-strong me-3"
@@ -51,10 +61,10 @@ export const Comment = (props) => {
 								</button>
 							</div>
 							<div className="d-flex comment-header mt-1">
-								<h6>{props.pub.user}</h6>
+								<h6>{props.com.user}</h6>
 								<button
 									className="btn btn-sm bg-gray-500 text-white mx-2 hover:bg-slate-400"
-									onClick={() => setShowEditComment(false)}
+									onClick={() => props.setSelectedComment("")}
 								>
 									Cancelar
 								</button>
@@ -81,12 +91,16 @@ export const Comment = (props) => {
 								<h6 className="commentUser">
 									{props.com.user}
 								</h6>
-								<button
-									className="btn btn-sm mb-2 bg-[#b59e67] text-white mx-2 hover:bg-[#debc6e]" 
-									onClick={() => setShowEditComment(true)}
-								>
-									Editar
-								</button>
+								{props.com.userId === 
+									localStorage.getItem("userId") && (
+										<button
+											className="btn btn-sm mb-2 bg-[#b59e67] text-white mx-2 hover:bg-[#debc6e]" 
+											onClick={() => props.setSelectedComment(props.com._id)}
+										>
+											Editar
+										</button>
+									)
+								}
 							</div>
 							<p>{props.com.content}</p>
 						</div>
@@ -99,3 +113,4 @@ export const Comment = (props) => {
 		</>
 	);
 };
+
