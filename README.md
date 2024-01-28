@@ -1,7 +1,7 @@
 ## Proyecto ADN-BNS
 
 #### Autor
-* **Juan Ignacio Pucheta** - [Perfil LinkedIn](www.linkedin.com/in/juan-ignacio-pucheta)
+* **Juan Ignacio Pucheta**
 
 ### Descripción del Backend
 
