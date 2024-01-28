@@ -1,3 +1,5 @@
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+
 export const connectionData = async (options) => {
 	try {
 		const requestOptions = {
@@ -5,27 +7,36 @@ export const connectionData = async (options) => {
 			headers: {},
 		};
 
+		if (options.token) {
+			requestOptions.headers = {
+				...requestOptions.headers,
+				Authorization: options.token,
+			}
+		}
+
 		if (options.body) {
 			requestOptions.headers = {
-				"Content-Type": "application.json",
-				Authorization: options.token,
+				...requestOptions.headers,
+				"Content-Type": "application/json",
 			};
 			requestOptions.body = JSON.stringify(options.body);
 		}
 
 		const response = await fetch(
-			`${options.endpoint}/${options.direction}`,
+			`${BACKEND_URL}/${options.direction}`,
 			requestOptions
 		);
 
 		if (!response.ok) {
-			throw new Error("error!");
+			throw new Error(response.status);
 		}
 
 		const data = await response.json();
 		return data;
 
 	} catch (error) {
-		console.error("Ha ocurrido un error: ", error);
+		if (error.message === "403") {
+			document.location.href = "/";
+		}
 	}
 };
