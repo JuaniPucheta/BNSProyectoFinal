@@ -6,7 +6,7 @@ import { Container } from "./components/Container";
 import { NewPublication } from "./components/NewPublication";
 import { FullPublication } from "./components/FullPublication";
 import { Login } from "./components/Login";
-import { SignIn } from "./components/SignIn";
+import { SignUp } from "./components/SignUp";
 import { AppContext, initialState } from "./components/AppContext";
 import { AppReducer } from "./components/AppReducer";
 
@@ -36,9 +36,9 @@ function App() {
 				) : (
 					<>
 						<Routes>
-							<Route path="/" default element={<Navigate to='/sign-in' />} />
+							<Route path="/" default element={<Navigate to='/sign-up' />} />
 							<Route path="/login" element={<Login />} />
-							<Route path="/sign-in" element={<SignIn />} />
+							<Route path="/sign-up" element={<SignUp />} />
 							<Route path="*" element={<Navigate to="/" />} />
 						</Routes>
 					</>

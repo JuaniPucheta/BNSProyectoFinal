@@ -25,7 +25,7 @@ export const logIn = async (user) => {
 };
 
 export const signUp = async (user) => {
-	const response = await fetch(`${BASE_BACKEND}/signIn`, {
+	const response = await fetch(`${BASE_BACKEND}/signUp`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
