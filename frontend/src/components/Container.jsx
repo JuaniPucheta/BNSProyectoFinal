@@ -13,12 +13,10 @@ export const Container = () => {
 	const appContext = useContext(AppContext);
 
 	const loadPublications = async () => {
-		try {
-			const data = await fetchPublications();
-			setPublications(data);
-		} finally {
-			setLoading(false);
-		}
+		setLoading(true);
+		const data = await fetchPublications();
+		setPublications(data);
+		setLoading(false);
 	};
 
 	useEffect(() => {
@@ -44,35 +42,37 @@ export const Container = () => {
 				</div>
 			) : (
 				<div className="flex flex-wrap justify-center">
-				{publications.length > 0 ? (
-					publications.map((pub) => (
-					<div
-						key={pub._id}
-						className="mx-4 mb-4 max-w-sm md:max-w-md lg:max-w-xl xl:max-w-2xl"
-					>
-						<PublicationCard
-							pub={pub}
-							loadPublications={loadPublications}
-						/>
-					</div>
-					))
-				) : (
-					<div className="container min-h-screen flex justify-center items-center">
-						<div className="card text-center new-publication-card mx-4 mb-4 max-w-sm md:max-w-md lg:max-w-xl xl:max-w-2xl bg-gradient-to-br from-[#d6c292] to-[#fff1cf] p-4 rounded-md shadow-md">
-							<div className="card-body">
-								<h5 className="card-title text-white font-bold text-xl mb-4">
-									Crear nueva publicación
-								</h5>
-								<button
-									onClick={() => navigate("/create-new-publication")}
-									className="btn bg-[#678c99] hover:bg-[#b8c7cc] text-white font-semibold w-full transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none"
-								>
-									Ir a crear
-								</button>
+					{publications.length > 0 && (
+						publications.map((pub) => (
+						<div
+							key={pub._id}
+							className="mx-4 mb-4 max-w-sm md:max-w-md lg:max-w-xl xl:max-w-2xl"
+						>
+							<PublicationCard
+								key={pub._id}
+								pub={pub}
+								loadPublications={loadPublications}
+							/>
+						</div>
+						))
+					)}
+					{!appContext.state.publications && (
+						<div className="container min-h-screen flex justify-center items-center">
+							<div className="card text-center new-publication-card mx-4 mb-4 max-w-sm md:max-w-md lg:max-w-xl xl:max-w-2xl bg-gradient-to-br from-[#d6c292] to-[#fff1cf] p-4 rounded-md shadow-md">
+								<div className="card-body">
+									<h5 className="card-title text-white font-bold text-xl mb-4">
+										Crear nueva publicación
+									</h5>
+									<button
+										onClick={() => navigate("/create-new-publication")}
+										className="btn bg-[#678c99] hover:bg-[#b8c7cc] text-white font-semibold w-full transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none"
+									>
+										Ir a crear
+									</button>
+								</div>
 							</div>
 						</div>
-					</div>
-				)}
+					)}
 				</div>
 			)}
 		</div>
