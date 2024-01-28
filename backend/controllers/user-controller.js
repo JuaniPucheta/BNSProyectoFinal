@@ -1,5 +1,7 @@
 import User from "../model/user.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import 'dotenv/config';
 
 const createUser = async (req, res) => {
 	try {
@@ -16,7 +18,7 @@ const createUser = async (req, res) => {
 	}
 };
 
-const compareUser = async (req, res) => {
+const logIn = async (req, res) => {
 	try {
 		const user = await User.findOne({
 			user: req.body.user,
@@ -27,8 +29,12 @@ const compareUser = async (req, res) => {
 			user.password
 		);
 
-		if (isPasswordMatch) {
-			return res.json("La contraseña es correcta.");
+		if (isPasswordMatch) {			
+			const token = jwt.sign({ user: user.user }, process.env.SECRET, {
+				expiresIn: "1h",
+			});
+			
+			return res.json({ token });
 		} else {
 			return res.json("La contraseña es incorrecta.");
 		}
@@ -37,4 +43,4 @@ const compareUser = async (req, res) => {
 	}
 };
 
-export { createUser, compareUser };
+export { createUser, logIn };
