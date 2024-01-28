@@ -4,13 +4,13 @@ import { PublicationCard } from "./PublicationCard";
 import { fetchPublications } from "../ApiMethods";
 import { useNavigate } from "react-router-dom";
 
-import { PublicationsContext } from "./PublicationsContext";
+import { AppContext } from "./AppContext";
 
 export const Container = () => {
 	const navigate = useNavigate();
 	const [publications, setPublications] = useState([]);
 	const [loading, setLoading] = useState(false);	
-	const publicationsContext = useContext(PublicationsContext);
+	const appContext = useContext(AppContext);
 
 	const loadPublications = async () => {
 		try {
@@ -26,14 +26,14 @@ export const Container = () => {
 	}, []);
 
 	useEffect(() => {
-		if (!publicationsContext.state.publications) {
+		if (!appContext.state.publications) {
 			loadPublications();
 		} else {
-			setPublications(publicationsContext.state.publications);
+			setPublications(appContext.state.publications);
 		}
 	}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	, [publicationsContext.state.publications]);
+	, [appContext.state.publications]);
 
 	return (
 		<div className="container min-h-screen">

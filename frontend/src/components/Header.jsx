@@ -2,7 +2,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import { fetchPublicationByKeyWord } from '../ApiMethods';
-import { PublicationsContext } from './PublicationsContext';
+import { AppContext } from './AppContext';
 import Icon from '@mdi/react';
 import { mdiMenu, mdiMagnify, mdiTools, mdiClose } from '@mdi/js';
 
@@ -15,12 +15,12 @@ export const Header = () => {
 
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
-  const publicationsContext = useContext(PublicationsContext);
+  const appContext = useContext(AppContext);
 
 	async function handleSearch(e, keyWord) {
 		e.preventDefault();
 		const payload = await fetchPublicationByKeyWord(keyWord);
-		publicationsContext.dispatch({
+		appContext.dispatch({
 			type: "setPublications",
 			payload,
 		});
@@ -28,7 +28,7 @@ export const Header = () => {
 
 	function resetPublications() {
 		setSearch("");
-    publicationsContext.dispatch({
+    appContext.dispatch({
       type: "setPublications",
       payload: null,
     });
@@ -99,7 +99,6 @@ export const Header = () => {
               </button>
             </form>
           </div>
-
 
         </div>
       </div>
